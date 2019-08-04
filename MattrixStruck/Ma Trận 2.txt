@@ -1,0 +1,308 @@
+//ky thuat dem trong ma tran
+#include<stdio.h>
+#include<math.h>
+#define MAX 100
+//ham nhap so cot va so dong cua ma tran so nguyen
+void Nhap(int &d,int &c)
+{
+	do
+	{
+		printf("\nMoi nhap dong va cot cua ma tran:");
+		scanf("%d,%d",&d,&c);
+		if(d<=0 || d>100 && c<=0 || c>100)
+			printf("\nNhap sai moi nhap lai so dong va cot:");
+	}while(d<=0 || d>100 && c<=0 || c>100);
+}
+//ham nhap ma tran so nguyen
+void NhapMaTran(int a[][MAX],int &d,int &c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			printf("a[%d][%d]:",i,j);
+			scanf("%d",&a[i][j]);
+		}
+	}
+}
+//ham xuat ma tran so nguyen
+void XuatMaTran(int a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+			printf("%4d",a[i][j]);
+		printf("\n");	
+	}
+}
+//ham dem cac so duong co trong ma tran
+int DemDuong(int a[][MAX],int d,int c)
+{
+	int dem=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i]>0)
+				dem++;
+		}
+	}
+	return dem;
+}
+//ham kiem tra so nguyen to, so nguyen to la so lon hon 2 chia het cho 1 va chinh no
+bool KiemTraNguyenTo(int x)
+{
+	if(x<2)
+		return false;//khong la so nguyen to
+	else if(x>2)
+	{
+		if(x%2==0)
+			return false;//khong la so nguyen to
+		for(int i=3;i<=sqrt((float)x);i+=2)
+		{
+			if(x%i==0)
+				return false;//khong la so nguyen to
+		}
+			
+	}
+	return true;//la so nguyen to
+}
+//ham dem so nguyen to co trong ma tran
+int DemNguyenTo(int a[][MAX],int d,int c)
+{
+	int dem1=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(KiemTraNguyenTo(a[i][j])==true)
+				dem1++;
+		}
+	}
+	return dem1;
+}
+//ham dem tan suat xuat hien cua mot gia tri x co trong ma tran
+int DemTanSuat(int a[][MAX],int d,int c,float x)
+{
+	int dem2=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]==x)
+				dem2++;
+		}
+	}
+	return dem2;
+}
+//ham dem so chu so co trong ma tran
+//vi du ma tran 2 hang 3 cot
+//12 35 5
+//87 0 69
+//so chu so co trong ma tran la 10
+//ham dem so luong chu so cua gia tri y
+int DemSoLuongChuSoCuaY(int y)
+{
+	int dem4=0;
+	while(y!=0)
+	{
+		y/=10;//khi x bo 1 chu so dang sau no
+		dem4++;
+	}
+	return dem4;
+}
+int DemSoLuongChuSoCuaMaTran(int a[][MAX],int d,int c)
+{	
+	int dem5=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+			dem5+=DemSoLuongChuSoCuaY(a[i][j]);
+	}
+	return dem5 ;
+}
+//ham dem so luong cac so duong tren mot hang cua ma tran
+int DemDuongHang(int a[][MAX],int d,int c,int k)
+{
+	do
+	{
+		printf("\nMoi nhap chi so hang can dem:");
+		scanf("%d",&k);
+		if(k<0 || k>d)
+			printf("\nNhap sai, moi nhap lai:");
+	}while(k<0 || k>d);
+	int dem6=0;
+	for(int j=0;j<c;j++)
+	{
+		if(a[k][j]>0)
+			dem6++;
+	}
+	return dem6;
+}
+//ham kiem tra so hoan thien
+bool KiemTraHoanThien(int x)
+{
+	int s=0;
+	for(int i=1;i<x/2;i++)
+	{
+		if(x%i==0)
+			s+=i;
+	}
+	if(s==x)
+		return true;//la so hoan thien
+	else
+		return false;//khong la so hoan thien			
+}
+//ham dem so hoan thien cua ma tran
+int DemHoanThien(int a[][MAX],int d,int c)
+{
+	int dem7=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(KiemTraHoanThien(a[i][j])==true)
+				dem7++;
+		}
+	}
+	return dem7;
+}
+//ham dem so luong phan tu am tren mot cot
+int DemAmCot(int a[][MAX],int d,int c,int l)
+{
+	do
+	{
+		printf("\nMoi nhap chi so cot can dem:");
+		scanf("%d",&l);
+		if(l<0 || l>c)
+			printf("\nNhap sai, moi nhap lai so cot:");
+	}while(l<0 || l>c);
+	int dem8=0;
+	for(int i=0;i<d;i++)
+	{
+		if(a[i][l]<0)
+			dem8++;
+	}
+	return dem8;
+}
+//ham dem so luong duong tren bien ma tran 
+int DemDuongBien(int a[][MAX],int d,int c)
+{
+	int dem9=0;
+	for(int j=0;j<c;j++)
+	{
+		if(a[0][j]>0)
+			dem9++;
+	}
+	for(int i=1;i<d-1;i++)
+	{
+		if(a[i][0]>0)
+			dem9++;
+	}
+	return dem9;
+}
+//ham dem so luong cuc tri trong ma tram
+//1 phan tu duoc goi la cuc tri khi no lon hon hoac nho hon cac phan tu xung quang no , trai,phai,tren,duoi cua no
+#include<limits.h>
+int DemCucTri(int a[][MAX],int d,int c)
+{
+	int Max=INT_MIN;//lay ra kieu gia tri nho nhat cua kieu int,dat max la so cuc ki nho de dam bao moi so trong ma tran lon hon so max nay vi co 1 so phan tu khong du 4 huong
+	int Min=INT_MAX;//lay ra kieu gia tri lon nhat cua kieu int,dat min la so cuc ki lon de dam bao moi so trong ma tran nho hon so min nay vi co 1 so phan tu khong du 4 huong
+	int demcuctri=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			//vi du ta dang xet a[i][j]
+			//tren a[i][j]:a[i-1][j]
+			//duoi a[i][j]:a[i+1][j]
+			//trai a[i][j]:a[i][j-1]
+			//phai a[i][j]:a[i][j+1]
+			//1.xet cac phan tu khong du 4 huong
+			//xet tren
+			if(i-1<0)
+				printf("\nkhong hop le");
+			else
+			{
+				if(a[i-1][j]>Max)
+					Max=a[i-1][j];
+				return Max;
+				if(a[i-1][j]<Min)
+					Min=a[i-1][j];
+				return Min;		
+			}	
+			//xet duoi 
+			if(i+1==d)
+				printf("\nKhong hop le");
+			else
+			{
+				if(a[i+1][j]>Max)
+					Max=a[i+1][j];
+				return Max;
+				if(a[i+1][j]<Min)
+					Min=a[i+1][j];
+				return Min;		
+			}		
+			//xet trai
+			if(j-1<0)
+				printf("\nKhong hop le");
+			else
+			{
+				if(a[i][j-1]>Max)
+					Max=a[i][j-1];
+				return Max;
+				if(a[i][j-1]<Min)
+					Min=a[i][j-1];
+				return Min;		
+			}	
+			//xet phai
+			if(j+1==c)
+				printf("\nKhong hop le");
+			else			
+			{
+				if(a[i][j+1]>Max)
+					Max=a[i][j+1];
+				return Max;
+				if(a[i][j+1]<Min)
+					Min=a[i][j+1];
+				return Min;		
+			}
+			if(a[i][j]>Max || a[i][j]<Min)
+				demcuctri++;			
+		}
+	}
+	return demcuctri;
+}
+//ham chinh 
+int main()
+{
+	int d,c,k,l;
+	Nhap(d,c);
+	int a[MAX][MAX];
+	NhapMaTran(a,d,c);
+	printf("\nMa tran vua nhap la:\n");
+	XuatMaTran(a,d,c);
+	int dem=DemDuong(a,d,c);
+	printf("\nSo luong phan tu duong co trong ma tran la:%d",dem);
+	int dem1=DemNguyenTo(a,d,c);
+	printf("\nSo luong nguyen to co trong ma tran la:%d",dem1);
+	float x;
+	printf("\nMoi nhap gia tri x:");
+	scanf("%f",&x);
+	int dem3=DemTanSuat(a,d,c,x);
+	printf("\nSo la xuat hien cua gia tri x co trong ma tran la:%d",dem3);
+	int dem5= DemSoLuongChuSoCuaMaTran(a,d,c);
+	printf("\nSo luong chu so co trong ma tran la:%d",dem5);
+	int dem6=DemDuongHang(a,d,c,k);
+	printf("\nSo luong phan tu duong cua hang la:%d",dem6);
+	int dem7=DemHoanThien(a,d,c);
+	printf("\nSo luong so hoan thien trong ma tran la:%d",dem7);
+	int dem8=DemAmCot(a,d,c,l);
+	printf("\nSo luong phan tu am tren cot la:%d",dem8);
+	int dem9=DemDuongBien(a,d,c);
+	printf("\nSo luong duong phan tu duong tren bien la:%d",dem9);
+	int demcuctri=DemCucTri(a,d,c);
+	printf("\nSo luong phan tu cuc tri co trong ma tran la:%d",demcuctri);
+	printf("\n");
+}
+

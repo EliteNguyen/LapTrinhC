@@ -1,0 +1,79 @@
+void Xoachandau(int a[],int n)
+{
+	int m;
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]%2==0)
+			m=i;
+	}
+	for(int i=m;i<n;i++)
+	{
+		a[i]=a[i+1];
+	}
+	printf("\nMang sau khi xoa phan tu chan dau tien: ");
+	for(int i=0;i<n;i++)
+	{
+		printf("%4d",a[i]);
+	}
+}
+//Xoa tat ca phan tu lon nhat
+
+void Xoaallmax(int a[],int n)
+{
+	int m = max(a,n);
+	
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]==m)
+		for(int j=i;j<n;j++)
+		{
+			a[j]=a[j+1];
+		}
+	}
+	for(int i=0;i<n;i++)
+	{
+		printf("%4d",a[i]);
+	}
+}
+
+//Them 1 pah ntu sau do sap xep
+
+void Vd26(int a[],int n,int x)
+{
+	n++;
+	a[n-1]=x; //tang them mot phan tu thi n cung phai tang, ông gan ô n-1 de cho gia tri x vao trong mang
+	// xong roi lam nhu ham sap xep binh thuong thoi nha ong
+}
+
+// dao nguoc mang thi ong chi can chay nguoc vong for thoi
+int Swap(int &h,int &k)
+{
+	int t=a;a=b;b=t;
+}
+void Sapxep(int a[],int n)
+{
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			if(a[i]>a[j])
+				Swap(a[i],a[j]);
+		}
+	}
+}
+int Kt(int k)
+{
+	int m=sqrt(k)
+	return (m*m == k);
+}
+
+int TimVTCcuaX(int a[],int n,int x,int &vt) //vt co them & de luu i 
+{
+	for(i=n-1;i>=0;i--)
+	{
+		if(a[i] == x)
+			vt = i;
+	}
+	return vt;
+}
+

@@ -1,0 +1,153 @@
+#include <stdio.h>
+#define MAX 50
+struct PhanSo
+{
+	int tu;
+	int mau;
+};
+void Nhapphanso(PhanSo &ps)
+{
+	printf("Moi nhap tu = ");
+	scanf("%d",&ps.tu);
+	printf("Moi nhap mau =");
+	scanf("%d",&ps.mau);
+}
+void Xuat(PhanSo ps)
+{
+	printf("%d/%d",ps.tu,ps.mau);
+}
+int TimUocChungLonNhat(int a,int b)
+{
+	while (a != 0 && b != 0)
+		if(a > b)a=a-b;
+		else b=b-a;
+	return a;
+}
+PhanSo RutGon(PhanSo &ps)
+{
+	if(ps.tu!=0)
+	{
+		int uc = TimUocChungLonNhat(ps.tu,ps.mau);
+		ps.tu /= uc;
+		ps.mau /= uc;
+	}
+	return ps;
+}
+PhanSo Tong(PhanSo a, PhanSo b)
+{
+	PhanSo kq ={0,1};
+	kq.tu = a.tu*b.mau+b.tu*a.mau;
+	kq.mau = a.mau*b.mau;
+	return RutGon(kq);
+}
+int SoSanh(PhanSo a, PhanSo b)
+{
+	int left=a.tu*b.mau;
+	int right=a.mau*b.tu;
+	if(left>right)
+		return 1;
+	if(left<right)
+		return -1;
+	return 0;
+}
+void Nhap(int &n)
+{
+	do{
+		printf("\nMoi nhap (n>0) n= ");
+		scanf("%d",&n);
+		if(n <= 0)
+			printf("\nNhap sai,nhap lai: ");
+	}while(n <= 0);
+}
+void NhapMang(PhanSo c[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("\nMoi nhap phan so thu %d\n",i+1);
+		Nhapphanso(c[i]);
+		
+	}
+}
+void XuatMang(PhanSo c[],int n)
+{
+	for(int i = 0; i < n; i++)
+	{
+		printf("\nPhan so thu %d: ",i+1);
+		Xuat(c[i]);
+	}
+}
+PhanSo TinhTong(PhanSo c[],int n)
+{
+	PhanSo s={0,1};
+	for(int i=0;i<n;i++)
+		s=Tong(s,c[i]);
+	return s;
+}
+PhanSo TimMax(PhanSo c[],int n)
+{
+	PhanSo m=c[0];
+	for(int i=1;i<n;i++)
+		if(SoSanh(c[i],m)>0)
+			m=c[i];
+	return m;
+}
+void Swap(PhanSo &a,PhanSo &b)
+{
+	PhanSo t = a; a = b; b = t;
+}
+void SapTang(PhanSo c[], int n)
+{
+	for(int i = 0;i < n - 1; i++)
+		for(int j= i + 1;j < n; j++)
+			if(SoSanh(c[i],c[j])>0)
+				Swap(c[i],c[j]);
+}
+int main()
+{
+	int a,b,n;
+	PhanSo(ps);
+	Nhapphanso(ps);
+	printf("\nPhan so sau khi nhap ");
+	Xuat(ps);
+	TimUocChungLonNhat(a,b);
+	RutGon(ps);
+	printf("\nPhan so sau khi rut gon la: ");
+	Xuat(ps);
+	
+	PhanSo ps1,ps2;
+	printf("\nMoi nhap phan so 1: ");
+	Nhapphanso(ps1);
+	printf("\nMoi nhap phan so 2: ");
+	Nhapphanso(ps2);
+	PhanSo kq=Tong(ps1,ps2);
+	printf("\n Phan so sau khi cong : ");
+	Xuat(kq);	
+	int ss=SoSanh(ps1,ps2);
+	if(ss>0)
+		printf("\nps1 > ps2");
+	else if(ss<0)
+		printf("\nps2 > ps1");
+	else
+		printf("\nps1=ps2");	
+	printf("\n");
+	
+	Nhap(n);
+	PhanSo c[MAX];
+	NhapMang(c,n);
+	printf("\nDanh sach sau khi nhap ");
+	XuatMang(c,n);
+	printf("\n");
+	
+	PhanSo s=TinhTong(c,n);
+	printf("\nTong phan so: ");
+	Xuat(s);	
+	PhanSo m = TimMax(c, n);
+	printf("\nPhan so max: ");
+	Xuat(m);
+	
+	SapTang(c,n);
+	printf("\nDanh sach sau khi sap tang ");
+	XuatMang(c,n);
+	printf("\n");
+	return 0;
+}

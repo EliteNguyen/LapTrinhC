@@ -1,0 +1,214 @@
+#include<iostream>
+using namespace std;
+#define MAX 100
+//ham nhap mang
+void NhapMang(int a[],int &n)
+{
+	do
+	{
+		cout <<"\nNhap vao so luong phan tu mang:";
+		cin >> n;
+		if(n<=0 || n>MAX)
+			cout <<"\nNhap sai, moi nhap lai:";
+	}while(n<=0 || n>MAX);
+	//duyet vong lap de nhap tung gia tri cho mang	
+	for(int i=0;i<n;i++)
+	{
+		cout <<"\nNhap vao a["<<i<<"]:";
+		cin >>a[i];
+	}
+}
+//ham xuat mang
+void XuatMang(int a[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<a[i] << "   ";//nen cho 3 khoang trang vi moi xuat ra 1 gia tri nen de bi dinh lien
+	}
+}
+//ham tim kiem xem 1 phan tu co nam trong mang hay khong
+bool TimKiem(int a[],int n,int x)//x la phan tu can tim kiem
+{
+	//duyet tung phan tu cua mang roi dem so sanh voi x
+	for(int i=0;i<n;i++)
+	{
+		//lien tuc kiem tra 
+		if(a[i]==x)
+			return true;//tra ve gia tri va ket thuc ham
+	}
+	return false;//khong ton tai x trong mang
+}//ham kiem tra xem mang co toan so duong hay khong, thuat toan 1 la dem so luong phan tu trong mang, neu dem dung bang n suy ra mang toan duong, Thuat Toan 2 duyet vong lap neu tim thay so am thi ket kuan la FALSE va neu duyet den cuoi cung khong thay so am thi ket luan la TRUE
+bool KiemTra(int a[],int n)
+{
+	int dem=0;
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]>=0)
+			dem++;//dem lien tuc tang;
+	}
+	if(dem==n)
+		return true;//tra ve true neu thoa mang dieu kien
+	else return false;//tra ve false neu khong thoa man dieu kien
+}
+bool KiemTraCach2(int a[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]<0)
+			return false;
+	}
+	return true;
+}
+//ham tach cac so am luu vao mang moi, sau do lai mang vua tach vao mang cu
+//vd:1,2,-3,-4,5
+//tach mang moi la:-3,-4
+//Gop lai:1,2,-3,-4,5,-3,-4
+void TachMang(int a[],int n,int Temp[],int &nTemp)//Mang temp va nTemp:So luong phan tu cua mang
+{
+	nTemp=0;
+	//duyet mang de tim ra cac so am luu vao mang
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]<0)
+		{
+			Temp[nTemp]=a[i];//mang Temp co 1 phan tu dau tien
+			nTemp++;
+		}
+	}
+}
+//ham gop mang
+//a=0,1,2,3,4
+//b=0,1
+//a=0,1,2,3,4,5,6
+//5a=0b va 6a=1b
+void GopMang(int a[],int &n,int Temp[],int nTemp)
+{
+	n=n+nTemp;//tang so luong phan tu cua mang a len 
+	for(int i=n-nTemp;i<n;i++)
+	{
+		a[i]=Temp[i-(n-nTemp)];
+	}
+}
+//ham tim gia tri nho nhat
+int TimMin(int a[],int n)
+{
+	int min=a[0];
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]<min)
+			min=a[i];
+	}
+	return min;
+}
+//ham tim gia tri lon nhat
+int TimMax(int a[],int n)
+{
+	int max=a[0];
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]>max)
+			max=a[i];
+	}
+	return max;
+}
+//Ham hoan vi 2 so nguyen
+void swap(int &x,int &y)//ham swap dung de sap xep mang tang dan
+{
+	int Temp=x;x=y;y=Temp;
+}
+//ham sap xep tang dan
+void XepTang(int a[],int n)
+{
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			if(a[i]>a[j])
+				swap(a[i],a[j]);
+		}
+	}
+}
+//ham sap xep giam dan
+void XepGiam(int a[],int n)
+{
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			if(a[i]<a[j])
+				swap(a[i],a[j]);
+		}
+	}
+}
+//ham them mot phan tu vao vi tri mang
+//gia su mang a ban dau co:
+//chi so: 0,1,2,3,4,5,6,7,8
+//phan tu:1,2,3,4,5,6,7,8,9
+//Them phan tu x vao vi tri thu 3
+//Mang a sau khi them la:
+//chi so: 0,1,2,3,4,5,6,7,8,9
+//phan tu:1,2,3,x,4,5,6,7,8,9
+//sau=truoc
+//a[4]=a[3]
+//chay nguoc tu duoi len tren moi dung
+void ThemPhanTu(int a[],int &n,int ViTriThem,int PhanTuThem)
+{
+		for(int i=n-1;i>=0;i--)
+		{
+			a[i]=a[i-1];
+		}
+		n++;
+}
+//ham chinh
+int main()
+{
+	int a[MAX];//Bat buoc phai truyen max vao mang
+	int n;
+	NhapMang(a,n);
+	XuatMang(a,n);
+	int x;
+	cout <<"\nNhap vao phan tu can tim kiem:";
+	cin >>x;
+	bool check=TimKiem(a,n,x);//goi lai ham tim kiem
+	//kiem tra va so sanh ket qua
+	if(check==true)
+		cout <<"\nPhan tu x co ton tai trong mang";
+	else
+		cout <<"\nPhan tu x khong ton tai trong mang";
+	bool KiemTraToanDuong=KiemTraCach2(a,n);
+	if(KiemTraToanDuong==true)
+		cout<<"\nMang toan so duong";
+	else cout<<"\nMang co ton tai mot phan tu am";
+	int Temp[MAX];
+	int nTemp;
+	TachMang(a,n,Temp,nTemp);
+	cout<<"\nMang Temp:\n";		
+	XuatMang(Temp,nTemp);
+	GopMang(a,n,Temp,nTemp);
+	cout<<"\nMang a sau khi gop la:\n";
+	XuatMang(a,n);
+	int min=TimMin(a,n);
+	cout<<"\nMin="<<min;
+	int max=TimMax(a,n);
+	cout<<"\nMax la:"<<max;
+	cout<<"\nMang sau khi sap xep tang:\n";	
+	XepTang(a,n);
+	XuatMang(a,n);
+	cout<<"\nMang sau khi sap xep giam:\n";
+	XepGiam(a,n);
+	XuatMang(a,n);
+	int ViTriThem,PhanTuThem;
+	do
+	{
+		cout<<"\nNhap vao vi tri them:";
+		cin>>ViTriThem;
+		if(ViTriThem<0 || ViTriThem>n)
+			cout<<"\nNhap sai moi nhap lai:";
+	}while(ViTriThem<0 || ViTriThem>n);
+	cout<<"\nNhap vao phan tu them:",
+	cin>>PhanTuThem;
+	ThemPhanTu(a,n,ViTriThem,PhanTuThem);
+	cout << " Mang sau khi them phan tu la: " << PhanTuThem << " vao vi tri them la: " << ViTriThem << " la:\n ";
+	XuatMang(a,n);
+	system("pause");
+}
