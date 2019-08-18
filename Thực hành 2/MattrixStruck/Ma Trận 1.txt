@@ -1,0 +1,278 @@
+//ky thuat tinh toan trong ma tran
+#include<stdio.h>
+#include<math.h>
+#define MAX 100
+//ham nhap so cot va so dong cua ma tran so nguyen
+void Nhap(int &d,int &c)
+{
+	do
+	{
+		printf("\nMoi nhap dong va cot cua ma tran:");
+		scanf("%d,%d",&d,&c);
+		if(d<=0 || d>100 && c<=0 || c>100)
+			printf("\nNhap sai moi nhap lai so dong va cot:");
+	}while(d<=0 || d>100 && c<=0 || c>100);
+}
+//ham nhap ma tran so nguyen
+void NhapMaTran(int a[][MAX],int &d,int &c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			printf("a[%d][%d]:",i,j);
+			scanf("%d",&a[i][j]);
+		}
+	}
+}
+//ham xuat ma tran so nguyen
+void XuatMaTran(int a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+			printf("%4d",a[i][j]);
+		printf("\n");	
+	}
+}
+//ham tinh tong cac so duong trong ma tran
+int TinhTongDuong(int a[][MAX],int d,int c)
+{
+	int s=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]>0)
+				s=s+a[i][j];
+		}
+	}
+	return s;
+}
+//ham tinh tong cac so le cua ma tran
+int TongLe(int a[][MAX],int d,int c)
+{
+	int s1=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]%2!=0)
+				s1=s1+a[i][j];
+		}
+	}
+	return s1;
+}
+//ham tinh tong cac so chan trong ma tran
+int TongChan(int a[][MAX],int d,int c)
+{
+	int s2=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]%2==0)
+				s2=s2+a[i][j];
+		}
+	}
+	return s2;
+}
+//ham tinh tich cac so le trong ma tran
+int TichLe(int a[][MAX],int d,int c)
+{
+	int tich=1;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]%2!=0)
+				tich*=a[i][j];
+		}
+	}
+	return tich;
+}
+//ham tinh tich cac phan tu chan trong mang 
+int TichChan(int a[][MAX] ,int d,int c)
+{
+	int tich1=1;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]%2==0)
+				tich1*=a[i][j];
+		}
+	}
+	return tich1;
+}
+//ham tinh tong cac phan tu tren mot vi tri dong
+int TongDong(int a[][MAX],int d,int k,int c)
+{
+	int s3=0;
+	do
+	{
+		
+		printf("\nMoi nhap vi tri dong can tinh:");
+		scanf("%d",&k);
+		if(k<0 || k>=d)
+			printf("\nNhap sai,moi nhap lai vi tri dong:");
+	}
+	while(k<0 || k>=d);
+	for(int j=0;j<c;j++)
+		s3=s3+a[k][j];
+	return s3;			
+}
+//ham tinh cac phan tu tren mot vi tri cot
+int TongCot(int a[][MAX],int d,int c,int l)
+{
+	int s4=0;
+	do
+	{
+		printf("\nMoi nhap vi tri cot can tinh:");
+		scanf("%d",&l);
+		if(l<0 || l>=c)
+			printf("\nNhap sai,moi nhap lai vi tri cot:");
+	}
+	while(l<0 || l>=c);
+	for(int i=0;i<d;i++)
+		s4=s4+a[i][l];
+	return s4;			
+}
+//ham tinh tich cac phan tu duong nam tren mot vi tri cot
+int TichDuongCot(int a[][MAX],int d,int c,int l)
+{
+	int tichcot=1;
+	do
+	{
+		printf("\nMoi nhap vi tri cot can tinh:");
+		scanf("%d",&l);
+		if(l<0 || l>=c)
+			printf("\nNhap sai,moi nhap lai vi tri cot:");
+	}
+	while(l<0 || l>=c);
+	for(int i=0;i<d;i++)
+	{
+		if(a[i][l]>0)
+		{
+			tichcot*=a[i][l];
+		}
+	}
+	return tichcot;
+}
+//ham tinh trung binh cong cac so duong trong ma tran
+double TBCDuong(int a[][MAX],int d,int c)
+{
+	int dem=0;
+	double s5=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]>0)
+			{
+				dem++;
+				s5+=a[i][j];
+			}
+		}
+	}
+	return s5/dem;
+}
+//ham tinh tong bien
+int TongBien(int a[][MAX],int d,int c)
+{
+	int s6=0;
+	//tinh tong dong dau va dong cuoi
+	for(int j=0;j<c;j++)
+		s6=s6+a[0][j]+a[d-1][j];
+	//tinh tong cot dau va cot cuoi	
+	for(int i=1;i<d-1;i++)//cot dau va cot cuoi se bo di 2 o dau va cuoi
+		s6=s6+a[i][0]+a[i][c-1];
+	return s6;	
+}
+//ham bien doi cac phan tu am ma tran thanh cac phan tu duong 
+void BienDoi(int a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]<0)
+				a[i][j]*=-1;
+		}
+	}
+}
+//ham xuat ma tran sau khi ma tran duoc bien doi
+void XuatBienDoi(int a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+			printf("%4d",a[i][j]);
+		printf("\n");	
+	}
+}
+//ham kiem tra so hoan thien
+//so hoan thien la so co cac uoc cong lai bang chinh no
+bool KiemTraHoanThien(int x)
+{
+	int s7=0;
+	for(int i=1;i<x/2;i++)
+	{
+		if(x%i==0)
+			s7+=i;
+	}
+	if(s7==x)
+		return true;//la so hoan thien
+	else
+		return false;//khong la so hoan thien			
+}
+//ham tinh tong cac so hoan thien
+int TongHoanThien(int a[][MAX],int d,int c)
+{
+	int s8=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(KiemTraHoanThien(a[i][j])==true)
+				s8+=a[i][j];
+		}
+	}
+	return s8;
+}
+//ham chinh
+int main()
+{
+	int d,c,k,l;
+	int a[MAX][MAX];
+	Nhap(d,c);
+	NhapMaTran(a,d,c);
+	printf("\nMa tran so nguyen vua nhap:\n");
+	XuatMaTran(a,d,c);
+	int s=TinhTongDuong(a,d,c);
+	printf("\nTong cac so duong trong ma tran la:%d",s);
+	int s1=TongLe(a,d,c);
+	printf("\nTong cac phan tu le trong ma tran:%d",s1);
+	int s2=TongChan(a,d,c);
+	printf("\nTong cac so chan trong ma tran:%d",s2);
+	int tich=TichLe(a,d,c);
+	printf("\nTich cac phan tu le trong mang la:%d",tich);
+	int tich1=TichChan(a,d,c);
+	printf("\nTich cac phan tu chan trong mang la:%d",tich1);
+	int s3=TongDong(a,d,k,c);
+	printf("\nTong cac phan tu tren mot vi tri dong la:%d",s3);
+	int s4=TongCot(a,d,c,l);
+	printf("\nTong cac phan tu tren mot vi tri cot la:%d",l,s4);
+	int tichcot=TichDuongCot(a,d,c,l);
+	printf("\nTich cac phan tu duong tren vi tri cot la:%d",l,tichcot);
+	double s5=TBCDuong(a,d,c);
+	printf("\nTrung binh cong cac phan tu duong trong ma tran la:%2lf",s5);
+	int s6=TongBien(a,d,c);
+	printf("\nTong cac phan tu nam tren duong bien cua ma tran la:%d",s6);
+	BienDoi(a,d,c);
+	printf("\nMa tran sau khi bien doi la:\n");
+	XuatBienDoi(a,d,c);
+	int s8=TongHoanThien(a,d,c);
+	printf("\nTong cac phan tu hoan thien trong ma tran la:%d",s8);
+	printf("\n");
+}

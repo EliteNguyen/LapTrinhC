@@ -1,0 +1,151 @@
+//ky thuat dat co hieu
+#include<stdio.h>
+#include<math.h>
+#define MAX 100
+//ham nhap so cot va so dong cua ma tran so nguyen
+void Nhap(int &d,int &c)
+{
+	do
+	{
+		printf("\nMoi nhap dong va cot cua ma tran:");
+		scanf("%d,%d",&d,&c);
+		if(d<=0 || d>100 && c<=0 || c>100)
+			printf("\nNhap sai moi nhap lai so dong va cot:");
+	}while(d<=0 || d>100 && c<=0 || c>100);
+}
+//ham nhap ma tran so nguyen
+void NhapMaTran(float a[][MAX],int &d,int &c)
+{
+	for(int i=0;i<d*c;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			printf("a[%d][%d]:",i,j);
+			scanf("%f",&a[i][j]);
+		}
+	}
+}
+//ham xuat ma tran so nguyen
+void XuatMaTran(float a[][MAX],int d,int c)
+{
+	for(int i=0;i<d*c;i++)
+	{
+		for(int j=0;j<c;j++)
+			printf("%6.2f",a[i][j]);
+		printf("\n");	
+	}
+}
+//ham kiem tra ma tran co ton tai phan tu duong hay khong
+bool KiemTraTonTaiDuong(float a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]>0)
+				return true;//ma tran co ton tai phan tu duong 
+		}
+	}
+	return false;//ma tran khong ton tai phan tu duong
+}
+//ham kiem tra ma tran co ton tai so le khong
+bool KiemTraTonTaiLe(float a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]/2!=0)
+				return true;
+		}
+	}
+	return false;
+}
+//ham kiem tra so hoan thien
+bool KiemTraHoanThien(int x)
+{
+	int s=0;
+	for(int i=1;i<x/2;i++)
+	{
+		if(x%i==0)
+			s+=i;
+	}
+	if(s==x)
+		return true;//la so hoan thien
+	else
+		return false;//khong la so hoan thien			
+}
+//ham kiem tra ma tran co ton tai so hoan thien hay khong
+bool KiemTraTonTaiHoanThien(float a[][MAX],int d,int c)
+{
+	int s=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(KiemTraHoanThien(a[i][j])==true)
+				return true;	
+		}
+	}
+	return false; 
+}
+//ham kiem tra ma tran toan duong
+bool KiemTraToanDuong(float a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]<0)
+				return false;
+		}
+	}
+	return true;
+}
+//ham kiem tra hang co tang dan hay khong
+bool KiemTraHangTang(float a[][MAX],int d,int c,int k)
+{
+	do
+	{
+		printf("\nMoi nhap chi so hang:");
+		scanf("\n%d",&k);
+		if(k<0||k>=d)
+			printf("\nNhap sai,moi nhap lai so cot:");
+	}while(k<0||k>=d);
+	for(int j=0;j<c;j++)
+	{
+		if(a[k][j]>a[k][j+1])
+			return false;//hang khong tang dan
+	}
+	return true;//hang tang dan
+}
+//ham chinh
+int main()
+{
+	int d,c,k;
+	Nhap(d,c);
+	float a[MAX][MAX];
+	NhapMaTran(a,d,c);
+	printf("\nMa tran vua nhap la:\n");
+	XuatMaTran(a,d,c);
+	if(KiemTraTonTaiDuong(a,d,c)==true)
+		printf("\nMa tran co ton tai phan tu duong");
+	else
+		printf("\nMa tran khong ton tai mot phan tu duong nao");
+	if(KiemTraTonTaiLe(a,d,c)==true)
+		printf("\nMa tran co ton tai phan tu le");
+	else
+		printf("\nMa tran khong ton tai phan tu le");
+	if(KiemTraTonTaiHoanThien(a,d,c)==true)
+		printf("\nMa tran ton tai so hoan thien");
+	else
+		printf("\nMa tran khong ton tai so hoan thien");
+	if(KiemTraToanDuong(a,d,c)==true)
+		printf("\nMa tran toan so duong");
+	else
+		printf("\nMa tran khong toan duong");
+	if(KiemTraHangTang(a,d,c,k)==true)
+		printf("\nHang tren tang dan");
+	else 
+		printf("\nHang tren khong tang dan");											
+}

@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<math.h>
+#define Loai_1 2500
+#define Loai_2 3000
+#define Loai_3 3500
+//ham nhap so tien dien
+void Nhap(float &n)
+{
+	do
+	{
+		printf("\nMoi ban nhap so dien su dung:");
+		scanf("\n%f",&n);
+		if(n<0)
+			printf("\nMoi ban nhap lai so dien:");
+	}while(n<0);
+}
+//ham tinh tien dien
+unsigned long TinhTienDien(float n)
+{
+	if(n>0&&n<50)
+	{
+		return n*Loai_1;
+	}
+	else if(n>50&&n<100)
+	{
+		return n*Loai_2;
+	}
+	return n*Loai_3;		
+}
+//ham chinh
+int main()
+{
+	float n;
+	Nhap(n);
+	unsigned long SoTienTra=TinhTienDien(n);
+	printf("\nSo tien dien ban phai tra sau khi su dung la:%u",SoTienTra);
+}

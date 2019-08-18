@@ -1,0 +1,135 @@
+#include<stdio.h>
+#include<string.h>
+#define MAX 100
+struct SinhVien
+{
+	char maSV[11];
+	char hoTen[31];
+	char gt; 
+	char lop[8];
+	double diemTB;
+};
+void Nhap(SinhVien &x)
+{
+	printf("\nMoi nhap ma sinh vien:");
+	fflush(stdin);
+	gets(x.maSV);
+	printf("\nMoi nhap ho ten:");
+	fflush(stdin);
+	gets(x.hoTen);
+	printf("\nMoi nhap('x':nu,'y':nam)gt= ");
+	scanf("%c", &x.gt);
+	printf("\nMoi nhap lop:");
+	fflush(stdin);
+	gets(x.lop);
+	printf("\nMoi nhap diem trung binh= ");
+	scanf("%lf", &x.diemTB);
+}
+void Xuat(SinhVien x)
+{
+	printf("\nMa so cua sinh vien la:%s",x.maSV);
+	printf("\nHo ten= %s", x.hoTen);
+	if(x.gt=='x')
+		printf("\nGioi tinh: nu");
+	else
+		printf("\nGioi tinh: nam");
+	printf("\nLop= %s", x.lop);
+	printf("\nDiem trung binh= %.2lf", x.diemTB);
+}
+void Nhap(int &n)
+{
+	do
+	{
+		printf("\nMoi nhap(n>0 va n<=100)n:");
+		scanf("%d", &n);
+		if (n <= 0 || n > 100)
+			printf("\nNhap sai,moi nhap lai so luong sinh vien:");
+	} while (n <= 0 || n > 100); 
+}
+void NhapMang(SinhVien a[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\nMoi nhap thong tin sinh vien thu %d\n",i+1);
+		Nhap(a[i]);
+	}
+}
+void XuatMang(SinhVien a[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\nThong tin sinh vien thu %d\n",i+1);
+		Xuat(a[i]);
+	}
+}
+void XuatDTBHon5(SinhVien a[], int n)
+{
+	for (int i = 0; i < n; i++)
+		if(a[i].diemTB>5)
+			Xuat(a[i]);
+}
+void XuatSV_CNTT(SinhVien a[], int n)
+{
+	for (int i = 0; i < n; i++)
+		if (a[i].lop[3]=='T' && a[i].lop[4]=='H')
+			Xuat(a[i]);
+}
+int DemSV_Nu(SinhVien a[], int n)
+{
+	int dem = 0;
+	for (int i = 0; i < n; i++)
+		if (a[i].gt=='x')
+			dem++;
+	return dem;
+}
+double TimMax(SinhVien a[], int n)
+{
+	double m = a[0].diemTB;
+	for (int i = 1; i < n; i++)
+		if (a[i].diemTB > m)
+			m = a[i].diemTB;
+	return m;
+}
+void XuatSV_Max(SinhVien a[], int n)
+{
+	double m = TimMax(a, n);
+	for (int i = 0; i < n; i++)
+		if (a[i].diemTB==m)
+			Xuat(a[i]);
+}
+void Swap(SinhVien &a, SinhVien &b)
+{
+	SinhVien t = a; a = b; b = t;
+}
+void SapTangDTB(SinhVien a[], int n)
+{
+	for (int i = 0; i < n - 1; i++) 
+		for (int j = i + 1; j < n; j++)
+			if (a[i].diemTB > a[j].diemTB)
+				Swap(a[i], a[j]);
+}
+
+int main()
+{
+	int n;
+	SinhVien x;
+//	Nhap(x);
+//	Xuat(x);
+	Nhap(n);
+	SinhVien a[MAX];
+	NhapMang(a,n);
+	printf("\nDanh sach sinh vien sau khi nhap la:\n");
+	XuatMang(a,n);
+	printf("\nDanh sach sinh vien diem trung binh > 5:\n");
+	XuatDTBHon5(a, n);
+	printf("\nDanh sach sinh vien CNTT:\n");
+	XuatSV_CNTT(a, n);
+	int dem = DemSV_Nu(a, n);
+	printf("\nSo sinh vien nu: %d\n", dem);
+	printf("\nDanh sach sinh vien diem trung binh max:\n");
+	XuatSV_Max(a, n);
+	SapTangDTB(a, n);
+	printf("\nDanh sach sinh vien sau khi sap tang:\n");
+	XuatMang(a, n);
+
+}

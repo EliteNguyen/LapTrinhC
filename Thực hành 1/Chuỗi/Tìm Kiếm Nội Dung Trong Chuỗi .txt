@@ -1,0 +1,17 @@
+//ham tim kiem noi dung trong chuoi
+//su dung ham strstr de lay ra mot phan chuoi goc bat dau bang chuoi hoc
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char chuoi[30];
+	printf("\nMoi ban nhap chuoi:");
+	gets(chuoi);
+	char *s=strstr(chuoi,"hoc");
+	if(s==NULL)
+		printf("\nchuoi tren khong nam trong chuoi");
+	else//s!=NULL	
+		printf("\nChuoi trich ra: ");
+		puts(s);
+	return 0;
+}

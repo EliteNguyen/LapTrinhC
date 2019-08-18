@@ -1,0 +1,13 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char s1[30],s2[50];
+	printf("\nNhap s1:");
+	gets(s1);
+	printf("\nNhap s2:");
+	gets(s2);
+	char*strcat(char*s1,char*s2);
+	printf("\nChuoi s1:%s",s1);
+	return 0;
+}

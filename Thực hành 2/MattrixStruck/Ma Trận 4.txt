@@ -1,0 +1,94 @@
+#include<stdio.h>
+#include<math.h>
+#define MAX 100
+//ham nhap so cot va so dong cua ma tran so nguyen
+void Nhap(int &d,int &c)
+{
+	do
+	{
+		printf("\nMoi nhap dong va cot cua ma tran:");
+		scanf("%d,%d",&d,&c);
+		if(d<=0 || d>100 && c<=0 || c>100)
+			printf("\nNhap sai moi nhap lai so dong va cot:");
+	}while(d<=0 || d>100 && c<=0 || c>100);
+}
+//ham nhap ma tran so nguyen
+void NhapMaTran(int a[][MAX],int &d,int &c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			printf("a[%d][%d]:",i,j);
+			scanf("%d",&a[i][j]);
+		}
+	}
+}
+//ham xuat ma tran so nguyen
+void XuatMaTran(int a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+			printf("%4d",a[i][j]);
+		printf("\n");	
+	}
+}
+//ham tim so chan dau tien trong ma tran
+int TimChanDau(int a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]%2==0)
+				return a[i][j];
+		}
+	}
+	return -1;
+}
+//Tim phan tu lon nhat trong ma tran
+int TimMax(int a[][MAX],int d,int c)
+{
+	int max=a[0][0];
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]>max)
+				max=a[i][j];
+		}
+	}
+	return max;
+}
+//ham tim phan tu nho nhat cua ma tran
+int TimMin(int a[][MAX],int d,int c)
+{
+	int min=a[0][0];
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]<min)
+				min=a[i][j];
+		}
+	}
+	return min;
+}
+//ham chinh
+int main()
+{
+	int d,c;
+	Nhap(d,c);
+	int a[MAX][MAX];
+	NhapMaTran(a,d,c);
+	printf("\nMa tran vua nhap la:\n");
+	XuatMaTran(a,d,c);
+	int m=TimChanDau(a,d,c);
+	if(m==-1)
+		printf("\nMa tran khong co phan tu chan");
+	else
+		printf("\nPhan tu chan dau tien trong ma tran:%d",m);	
+	printf("\nPhan tu lon nhat cua ma tran la:%d",TimMax(a,d,c));
+	printf("\nPhan tu nho nhat cua ma tran la:%d",TimMin(a,d,c));
+}

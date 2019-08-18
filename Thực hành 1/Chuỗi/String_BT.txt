@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char s1[50],s2[50];
+	printf("\nMoi nhap chuoi s1: ");
+	gets(s1);
+	printf("\nMoi nhap chuoi s2: ");
+	gets(s2);
+	printf("\nChuoi s1 la: ");
+	puts(s1);
+	printf("\nChuoi s2 la: ");
+	puts(s2);
+	printf("\nDo dai cua chuoi s1 la: %d",strlen(s1));
+	printf("\nDo dai cua chuoi s2 la: %d",strlen(s2));
+	printf("\nNoi chuoi s1 vao s2 la: %s",strcat(s1,s2));
+	int m=strcmp(s1,s2);
+	if(m>0)
+		printf("\ns1>s2");
+	else if(m<0)
+			printf("\ns1<s2");
+		else//m==0
+			printf("\ns1=s2");
+	char *p=strstr(s1,s2);
+	if(p==NULL)
+		printf("\ns2 khong nam trong s1");
+	else//p!=NULL
+		printf("\ns2 nam trong s1");
+	return 0;						
+}

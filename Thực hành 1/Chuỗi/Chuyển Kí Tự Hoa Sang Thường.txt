@@ -1,0 +1,12 @@
+//ham doi ki tu chu hoa thanh chu thuong
+#include<stdio.h>
+#include<ctype.h>
+int main()
+{
+	char c;
+	printf("\nMoi ban nhap ki tu la: ");
+	scanf("\n%c",&c);
+	char d=toupper(c);
+	printf("%c",d);
+	return 0;
+}

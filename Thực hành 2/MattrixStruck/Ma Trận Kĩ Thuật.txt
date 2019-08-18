@@ -1,0 +1,120 @@
+void DichXoayVong(int a[][MAX], int n, int k, char t)
+{												
+	if (t == 't')
+		sangtrai(a,n,k);
+	else
+		sangphai(a,n,k);	
+}
+void sangtrai(int a[][MAX], int n,int k)
+{
+	k %= n;
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=0;j<n-1;j++)
+		{
+			swap(a[i][j], a[i][j + 1]);
+		}
+	}
+	Xuatmang(a,n);
+}
+void sangphai(int a[][MAX], int n,int k)
+{
+	k %= n;
+	for(int i=n-1;i>0;i--)
+	{
+		for(int j=n-1;j>0;j--)
+		{
+			swap(a[i][j], a[i][j - 1]);
+		}
+	}
+	Xuatmang(a,n);
+}
+Hàm tính t?ng các dòng
+1.	int tong(int a[][MAX],int d,int c,int k)
+2.	{ 
+3.	   for ( int i = 0 ; i <d ; i++) 
+4.	    for (int  k = i ; k <d ; k++)
+5.	     for ( int j = 0 ; j < c; j++
+6.	      tong[i] +=a[k][j];
+   return s;
+}
+7.	Hàm tìm dòng có t?ng l?n nh?t
+8.	int tonglonnhat(int a[][MAX], int d, int  c)
+9.	{
+10.		double max=tong(a,0,n);
+11.		for( i=1;i<d;i++)
+12.		{
+13.			double t=tong(a,i,n);
+14.			if(max<t)
+15.			{
+16.				max=t;
+17.			}
+18.		}
+19.		return max;
+20.	}
+21.	int tongnhonhat(int a[][MAX], int d, int c)
+22.	{
+23.		double min=tong(a,0,n);
+24.		for(int i=1;i<d;i++)
+25.		{
+26.			double t=tong(a,i,n);
+27.			if(min>t)
+28.			{
+29.				min=t;
+30.			}
+31.		}
+32.		return min;
+33.	}
+//hàm xóa 1 dòng và hàm xóa 1 c?t
+void XoaDong(int a[][MAX],int &d,int c)
+{
+ int dong; printf("nhap dong can xoa:"); scanf("%d",&dong);
+    for(int i=dong;i<d-1;i++)
+ for(int j=0;j<c;j++)
+ {
+ a[i][j]=a[i+1][j];
+ }
+  d--;
+ xuat(a,d,c);    
+}
+void XoaCot(int a[][MAX],int d, int &c)
+{
+ int cot; printf("nhap cot can xoa:"); scanf("%d",&cot);
+ for(int i=0;i<d;i++)
+ for(int j=cot;j<c-1;j++)
+ {
+ a[i][j]=a[i][j+1];
+ }
+ c--;
+ xuat(a,d,c); 
+}
+
+/*Sap xep ma tran tang dan theo dong*/
+void BubbleSortA(int A[][max], int d, int c)
+{
+   for(int k = 0; k<d ; k++)
+      for(int i = 0; i<c-1 ; i++)
+      for(int j = c-1; j>i ; j--)
+      if(A[k][j]<A[k][j-1])
+      {
+         int temp = A[k][j];
+         A[k][j] = A[k][j-1];
+         A[k][j-1] = temp;
+      }
+}
+
+*Sap xep ma tran tang dan theo cot*/
+void BubbleSortA(int A[][max], int d, int c)
+{
+   for(int k = 0; k<c ; k++)
+      for(int i = 0; i<d-1 ; i++)
+      for(int j = d-1; j>i ; j--)
+      if(A[j][k]<A[j-1][k])
+      {
+    int temp = A[j][k];
+    A[j][k] = A[j-1][k];
+    A[j-1][k] = temp;
+      }
+}
+
+

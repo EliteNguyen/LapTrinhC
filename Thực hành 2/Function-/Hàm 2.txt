@@ -1,0 +1,42 @@
+//viet chuong trinh tinh tien dien 
+//nhap vao so dien roi tinh theo cong thuc
+//0 den 50 kw thi gia la 2500/kwh
+//50 den 100 kw thi gia la 3000/kwh
+//>100 thi gia la: 3500/kwh
+#include<stdio.h>
+#include<conio.h>
+//khai bao bien toan cuc
+#define Loai_1 2500
+#define Loai_2 3000
+#define Loai_3 3500
+//ham nhap so dien ma ho dan su dung
+void NhapSoDienSuDung(float &SoDien)
+{
+	do
+	{
+		printf("\nMoi nhap vao so dien:");
+		scanf("\n%f",&SoDien);
+		if(SoDien<0)
+			printf("\nNhap sai, moi nhap lai so dien:");
+	}while(SoDien<0);
+}
+//ham tra ve so tien ma ho dan phai tra
+unsigned long TinhTien(int SoDien)
+{
+	if(SoDien>=0 && SoDien<=50)
+	{
+		return SoDien*Loai_1;
+	}
+	else if(SoDien>50 && SoDien<=100)
+	{
+		return SoDien*Loai_2;
+	}
+	return SoDien*Loai_3;
+}
+int main()
+{
+	float SoDien;
+	NhapSoDienSuDung(SoDien);
+	unsigned long SoTienPhaiTra=TinhTien(SoDien); 
+	printf("\nSo tien phai tra la:%u",SoTienPhaiTra);
+}

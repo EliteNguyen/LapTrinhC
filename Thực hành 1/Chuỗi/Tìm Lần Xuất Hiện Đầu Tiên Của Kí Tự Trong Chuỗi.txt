@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<string.h> 
+int main()
+{
+	char s[50],ch,*p;
+	printf("\nMoi ban nhap chuoi: ");
+	gets(s);
+	printf("\nNhap ki tu: ");
+	scanf("\n%c",&ch);  
+	p=strchr(s,ch);
+	if(p!=NULL)
+		printf("\nChi so cua ki tu la: %d",(int)(p-s));
+	else printf("\nKhong tim thay");
+	return 0;	
+}

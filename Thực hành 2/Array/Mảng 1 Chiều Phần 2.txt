@@ -1,0 +1,282 @@
+#include<stdio.h>
+#include<math.h>
+#define MAX 100
+//ham nhap phan tu 
+void Nhap(int &n)
+{
+	do
+	{
+		printf("\nMoi ban nhap so phan tu cua mang: ");
+		scanf("\n%d",&n);
+		if(n<=0 || n>100)
+			printf("Nhap sai,moi ban nhap lai:");
+	}while(n<=0 || n>100);
+}
+//ham nhap du lieu cho tung phan tu cua mang 
+void NhapMang(int a[],int &n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("\nMoi ban nhap du lieu vao phan tu a[%d]: ",i);
+		scanf("\n%d",&a[i]);
+	}
+}
+//ham xuat du lieu cua tung phan tu cua mang
+void XuatMang(int a[],int n)
+{
+	printf("\nMang ban vua nhap la:\n");
+	for(int i=0;i<n;i++)
+		printf("%4d",a[i]);
+}
+//ham xuat cac phan tu chia het cho 3 co trong mang
+void XuatChiaHet3(int a[],int n)
+{
+	printf("\nCac phan tu chhia het cho 3 co trong mang la:\n");
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]%3==0)
+			printf("%4d",a[i]);
+	}
+}
+//ham kiem tra tinh nguyen to cua mot phan tu
+int KTNT(int k)
+{
+	int dem=0;
+	for(int i=1;i<=k;i++)
+	{
+		if(k%i==0)
+			dem++;	
+	}
+	if(dem==2)
+		return true;
+	return false;	
+}
+//ham xuat cac so nguyen to trong mang
+void XuatNguyenTo(int a[],int n)
+{
+	printf("\nCac so nguyen to co trong mang la:\n");
+	for(int i=0;i<n;i++)
+	{
+		if(KTNT(a[i])==true)
+			printf("%4d",a[i]);
+	}
+}
+//ham dem cac so nguyen to co trong mang
+int DemNguyenTo(int a[],int n)
+{
+	int dem=0;
+	for(int i=0;i<n;i++)
+	{
+		if(KTNT(a[i])==true)
+			dem++;
+	}
+	return dem;
+}
+//ham tinh tong cac phan tu cua mang 
+int TinhTong(int a[],int n)
+{
+	int s=0;
+	for(int i=0;i<n;i++)
+		s=s+a[i];
+	return s;	
+}
+//ham tinh tong cac so nguyen to trong mang 
+int TongNguyenTo(int a[],int n)
+{
+	int s=0;
+	for(int i=0;i<n;i++)
+	{
+		if(KTNT(a[i])==true)
+			s=s+a[i];
+	}
+	return s;
+}
+//ham tinh trung binh cong cac phan tu trong mang
+double TrungBinhCongMang(int a[],int n)
+{
+	double tbc=(double)TinhTong(a,n)/n;
+	printf("\nTrung binh cong cac phan tu trong mang la: %2lf",tbc);//trung binh cong bang tong phan tu chia so luong phan tu
+}
+//ham tinh trung binh cong cac so nguyen to trong mang
+double TBCNT(int a[],int n)
+{
+	double tbcnt=(double)TongNguyenTo(a,n)/DemNguyenTo(a,n);
+	printf("\nTrung binh cong cac so nguyen to trong mang la: %2lf",tbcnt);
+}
+//ham tim phan tu duong dau tien trong mang 
+int TimDuongDau(int a[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]>0)
+			return a[i];
+	}
+	return 0;
+}
+//ham tim phan tu duong cuoi cung trong mang
+int TimDuongCuoi(int a[],int n)
+{
+	for(int i=n-1;i>=0;i--)
+	{
+		if(a[i]>0)
+			return a[i];
+	}
+	return 0;
+}
+//ham tim phan tu lon nhat trong mang 
+int TimMax(int a[],int n)
+{
+	int max=a[0];//gia su max la phan tu dau tien 
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]>max)
+			max=a[i];
+	}
+	return max;
+}
+//ham tim phan tu nho nhat trong mang
+int TimMin(int a[],int n)
+{
+	int min=a[0];//gia su min la phan tu dau tien
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]<min)
+			min=a[i];
+	}
+	return min;
+}
+//ham dem so luong phan tu lon nhat co trong mang
+int DemMax(int a[],int n)
+{
+	int dem=0;
+	for(int i=0;i<n;i++)
+	{
+		if(TimMax(a,n)==a[i])
+			dem++;
+	}
+	return dem;
+}
+//ham xuat vi tri phan tu lon nhat trong mang
+void XuatMax(int a[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		if(TimMax(a,n)==a[i])
+			printf("%4d",i);
+	}
+}
+//ham them mot phan tu vao dau mang
+void ThemDau(int a[],int &n)
+{
+	int x;
+	printf("\nMoi ban nhap phan tu de them vao dau mang: ");
+	scanf("%d",&x);
+	for(int i=n-1;i>=0;i--)
+		a[i+1]=a[i];//gia tri phan tu truoc bang gia tri phan tu sau
+	a[0]=x;	
+	n++;	
+}
+//ham nhap vi tri k de them phan tu x
+void ThemK(int a[],int &n,int x,int k)
+{
+	printf("\nMoi ban nhap phan tu muon them vao x: ");
+	scanf("%d",&x);
+	printf("\nMoi ban nhap vi tri muon them vao k: ");
+	scanf("%d",&k);
+	for(int i=n-1;i>=k;i--)
+		a[i+1]=a[i];
+	a[k]=x;
+	n++;	
+}
+//ham xoa phan tu dau cua mang
+void XoaDau(int a[],int &n)
+{
+	for(int i=0;i<n;i++)
+		a[i]=a[i+1];
+	n--;	
+}
+//ham xoa vi tri k
+void XoaK(int a[],int &n)
+{
+	int k;
+	printf("\nMoi nhap vi tri can xoa: ");
+	scanf("%d",&k);
+	for(int i=k;i<n;i++)
+		a[i]=a[i+1];
+	n--;	
+}
+//ham kiem tra xem mang co tang dan hay khong
+bool KiemTraTangDan(int a[],int n)
+{
+	for(int i=0;i<n-1;i++)
+	{
+		if(a[i]>a[i+1])
+			return 0;
+	}
+	return 1;
+}
+//ham tao mot mang chan
+void TaoMangChan(int a[],int n,int b[],int &m)
+{
+	m=0;
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]%2==0)
+			b[m++]=a[i];
+	}	
+}
+//ham xuat mang chan
+void XuatMangChan(int b[],int m)
+{
+	printf("\nMang chan la:\n");
+	for(int i=0;i<m;i++)
+		printf("%4d",b[i]);
+}
+//ham chinh
+int main()
+{
+	int n,x,k,m;
+	Nhap(n);
+	int a[MAX];
+	int b[MAX];
+	NhapMang(a,n);
+	XuatMang(a,n);
+	XuatChiaHet3(a,n);
+	XuatNguyenTo(a,n);
+	int demnguyento=DemNguyenTo(a,n);
+	printf("\nSo luong nguyen to co trong mang la:%d",demnguyento);
+	int tongmang=TinhTong(a,n);
+	printf("\nTong cac phan tu co trong mang la:%d",tongmang);
+	int tnt=TongNguyenTo(a,n);
+	printf("\nTong cac so nguyen to co trong mang la:%d",tnt);
+	TrungBinhCongMang(a,n);
+	TBCNT(a,n);
+	int duongdau=TimDuongDau(a,n);
+	printf("\nPhan tu duong dau tien co trong mang la:%d",duongdau);
+	int duongcuoi=TimDuongCuoi(a,n);
+	printf("\nPhan tu duong cuoi cung co trong mang la:%d",duongcuoi);
+	int max=TimMax(a,n);
+	printf("\nPhan tu lon nhat co trong mang la:%d",max);
+	int min=TimMin(a,n);
+	printf("\nPhan tu nho nhat co trong mang la:%d",min);
+	int demmax=DemMax(a,n);
+	printf("\nSo luong phan tu max la:%d",demmax);
+	printf("\nVi tri cua phan tu lon nhat trong mang la: ");
+	XuatMax(a,n);
+	ThemDau(a,n);
+	XuatMang(a,n);
+	ThemK(a,n,x,k);
+	XuatMang(a,n);
+	XoaDau(a,n);
+	XuatMang(a,n);
+	XoaK(a,n);
+	XuatMang(a,n);
+	bool kiemtratangdan=KiemTraTangDan(a,n);
+	if(kiemtratangdan==1)
+		printf("\nMang tang dan");
+	else
+		printf("\nMang khong tang dan");	
+	TaoMangChan(a,n,b,m);
+	XuatMangChan(b,m);
+	printf("\n");
+}

@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<math.h>
+//ham nhap so thuc
+void Nhap(float &n)
+{
+	printf("\nMoi nhap n:");
+	scanf("\n%f",&n);
+}
+//ham giai phuong trinh bac nhat
+void GiaiPhuongTrinhBac1(float a,float b)
+{
+	if(a==0)
+	{
+		if(b==0)
+			printf("\nPhuong trinh co vo so nghiem");
+		else//b!=0
+			printf("\nPhuong trinh tren la vo nghiem");	
+	}
+	else//a!=0
+	{
+		float x=-b/a;
+		printf("\nPhuong trinh co nghiem la:%f",x);
+	}
+}
+//ham giai phuong trinh bac 2
+void GiaiPhuongTrinhBac2(float a,float b,float c)
+{
+	if(a==0)
+		GiaiPhuongTrinhBac1(b,c);
+	else//a!=0
+	{
+		float denta=b*b-4*a*c;
+		if(denta>0)
+		{
+			float x1=(-b+sqrt(denta))/(2*a);
+			float x2=(-b-sqrt(denta))/(2*a);
+			printf("\nPhuong trinh co 2 nghiem phan biet la: %f, %f",x1,x2);
+			return;//ket thuc ham
+		}
+		else if(denta==0)
+		{
+			float x=(-b)/(2*a);
+			printf("\nPhuong trinh co 1 nghiem kep la: %f",x);
+			return;
+		}
+		printf("\nPhuong trinh tren vo nghiem");	
+	}	
+}
+//ham chinh
+int main()
+{
+	float a,b,c,n;
+	printf("\nMoi ban nhap so thuc a:");
+	Nhap(a);
+	printf("\nMoi ban nhap so thuc b:");
+	Nhap(b);
+	GiaiPhuongTrinhBac1(a,b);
+	printf("\nMoi ban nhap so thuc c:");
+	Nhap(c);
+	GiaiPhuongTrinhBac2(a,b,c);
+}

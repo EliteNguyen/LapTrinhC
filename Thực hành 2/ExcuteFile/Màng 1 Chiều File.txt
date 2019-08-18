@@ -1,0 +1,63 @@
+#include<stdio.h>
+void Docfile(char *fi, int &n, int a[])
+{
+	FILE *f=fopen(fi,"rt");
+	fscanf(f,"%d",&n);
+	for(int i=0; i<n; i++)
+		fscanf(f,"%d",&a[i]);
+	fclose(f);	
+}
+int TongC(int a[], int n)
+{
+	int t=0;
+	for(int i=0; i<n; i++)
+	{
+		if(a[i]%2==0)
+			t=t+a[i];
+	}
+	return t;
+}
+int Max(int a[], int n)
+{
+	int m=a[0];
+	for(int i=1; i<n; i++)
+		if(a[i]>m)
+			m=a[i];
+	return m;
+}
+int DemMax(int a[], int n)
+{
+	int d=0;
+	for(int i=0; i<n; i++)
+		if(a[i]==Max(a,n))
+			d++;
+	return d;
+}
+void SapXep(int a[], int n)
+{
+	for(int i=0; i<n-1; i++)
+		for(int j=i+1; j<n; j++)
+			if(a[i]>a[j])
+			{
+				int x=a[i];
+				a[i]=a[j];
+				a[j]=x;
+			}
+}
+int main()
+{
+	char *fi="d://mang.txt";
+	int n;
+	int a[100];
+	Docfile(fi,n,a);
+	printf("%d\n",n);
+	for(int i=0; i<n; i++)
+		printf("%4d",a[i]);
+	printf("\nTOng cac so chan trong mang: %d",TongC(a,n));
+	printf("\nSo lon nhat trong mang: %d",Max(a,n));
+	printf("\nSo cac phan tu co gia tri lon nhat = %d la %d", Max(a,n), DemMax(a,n));
+	SapXep(a,n);
+	printf("\nMang sau khi sap xep: ");
+	for(int i=0; i<n; i++)
+		printf("%4d",a[i]);
+}

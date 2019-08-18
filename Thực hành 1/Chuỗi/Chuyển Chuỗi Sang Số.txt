@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	char s1[50];
+	printf("\nMoi ban nhap chuoi s1: ");
+	gets(s1);
+	int a=atoi("s");
+	printf("\nChuoi duoc chuyen sang so nguyen la: %d",a);
+	long b=atol("hoc");
+	printf("\nChuoi sau khi chuyen thanh so nguyen dai la: %d",b);
+	float c=atof("hoc");
+	printf("\nChuoi sau khi chuyen thanh so thuc la: %f",c);
+	return 0;
+}

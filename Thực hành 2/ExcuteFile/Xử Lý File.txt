@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<stdlib.h>
+void DocFile(char *fileName, int a[], int &n)
+{
+	FILE *f = fopen(fileName, "rt");
+	fscanf(f,"%d", &n);
+	for (int i = 0; i < n; i++)
+		fscanf(f,"%d", &a[i]);
+	fclose(f);
+}
+void XuatMang(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+		printf("%4d", a[i]);
+}
+#define MAX 100
+#define Path "E:/"
+int LaNguyenTo(int k)
+{
+	int dem = 0;
+	for (int i = 1; i <= k; i++)
+		if (k%i == 0)
+			dem++;
+	return (dem == 2);
+}
+void XuatNguyenTo(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+		if(LaNguyenTo(a[i])==1)
+			printf("%4d", a[i]);
+}
+void XuatNguyenToFile(char *fileName,int a[], int n)
+{
+	FILE*f = fopen(fileName, "wt");
+	for (int i = 0; i < n; i++)
+		if (LaNguyenTo(a[i]) == 1)
+			fprintf(f,"%4d", a[i]);
+	fclose(f);
+}
+int main()
+{
+	int n, a[MAX];
+	DocFile(Path"INPUT.txt", a, n);
+	XuatMang(a, n);
+	printf("\n");
+	XuatNguyenTo(a, n);
+	printf("\n");
+	XuatNguyenToFile(Path"NguyenTo.txt", a, n);
+}

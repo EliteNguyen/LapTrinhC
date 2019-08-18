@@ -1,0 +1,180 @@
+#include<stdio.h>
+#include<math.h>
+#define MAX 100
+//ham nhap so dong va so cot cua ma tran
+void Nhap(int &d,int &c)
+{
+	do
+	{
+		printf("\nMoi nhap dong va cot cua ma tran:");
+		scanf("%d,%d",&d,&c);
+		if(d<=0 || d>100 && c<=0 || c>100)
+			printf("\nNhap sai moi nhap lai so dong va cot:");
+	}while(d<=0 || d>100 && c<=0 || c>100);
+}
+//ham nhap cac phan tu cho ma tran
+void NhapMaTran(int a[][MAX],int &d,int &c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			printf("\nMoi nhap phan tu a[%d][%d]:",i,j);
+			scanf("%d",&a[i][j]);
+	}
+	}
+}
+//ham xuat cac phan tu cua ma tran len man hinh
+void XuatMaTran(int a[][MAX],int d,int c)
+{
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+			printf("%4d",a[i][j]);
+		printf("\n");	
+	}
+}
+int TongMaTran(int a[][MAX],int d,int c)
+{
+	int s=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+			s=s+a[i][j];
+	}
+	return s;
+}
+//ham tinh tong cac phan tu chan co trong ma tran
+int TongChan(int a[][MAX],int d,int c)
+{
+	int tongchan=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(a[i][j]%2==0)
+				tongchan=tongchan+a[i][j];
+		}
+	}
+	return tongchan;
+}
+//ham kiem tra tinh nguyen to cua mot phan tu 
+int KTNT (int x)
+{
+	if (x<2) return 0;
+	for (int i=2 ; i<=x/2 ; i++ )                              //3
+		if (x%i==0) return 0;
+	return 1;
+}
+//ham tinh tong cac so nguyen to trong ma tran
+int TongNguyenTo(int a[][MAX],int d,int c)
+{
+	int tongnguyento=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(KTNT(a[i][j])==1)
+				tongnguyento+=a[i][j];
+		}
+	}
+	return tongnguyento;
+}
+//ham tinh tong cac phan tu tren duong cheo chinh
+int TongCheoChinh(int a[][MAX],int d,int c)
+{
+	if (d!=c)	return 0;                //4
+	int tongcheochinh=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(i==j)
+				tongcheochinh+=a[i][j];
+		}
+	}
+	return tongcheochinh;
+}
+int TongCheoChinh (int a[][MAX],int d, int c)
+{
+	if (d!=c) return 0;
+	int t=0;
+	for (int i=0;i<d;i++)
+		t=t+ a[i][i];
+	return t;
+}
+//ham tinh tong cac phan tu tren duong cheo phu
+int TongCheoPhu(int a[][MAX],int d,int c)
+{
+	if (d!=c) return 0;                        //4
+	int tongcheophu=0;
+	for(int i=0;i<d;i++)
+	{
+		for(int j=0;j<c;j++)
+		{
+			if(j==c-1-i)                        //5
+				tongcheophu+=a[i][j];
+		}
+	}
+	return tongcheophu;
+}
+int TongCheoPhu(int a[][MAX],int d,int c)
+{
+	if (d!=c) return 0;
+	int t=0;
+	for (int i=0;i<d;i++)
+		t=t+ a[i][d-i-1];
+	return t;
+}
+//ham tinh tong cac phan tu nam tren duong bien cua ma tran
+int TongBien(int a[][MAX],int d,int c)
+{
+	int s6=0;
+	//tinh tong dong dau va dong cuoi
+	for(int j=0;j<c;j++)
+		s6=s6+a[0][j]+a[d-1][j];
+	//tinh tong cot dau va cot cuoi	
+	for(int i=1;i<d-1;i++)//cot dau va cot cuoi se bo di 2 o dau va cuoi
+		s6=s6+a[i][0]+a[i][c-1];
+	return s6;	
+}
+int TongBien(int a[][MAX],int d,int c)
+{
+	int t=0;
+	for (int i=0; i<d; i++)
+		for (int j=0;j<c;j++)
+			if (i==0 || j==0 || i==(d-1) || j==(c-1))
+			 t=t+a[i][j];
+	return t;
+}
+//ham tim phan tu lon nhat trong ma tran
+int TimMax(int a[][MAX],int d,int c)
+{
+	int max=a[0][0];
+	for(int i=0;i<d;i++)
+	{
+		for(int j=1;j<c;j++)
+		{
+			if(a[i][j]>max)
+				max=a[i][j];
+		}
+	}
+	return max;
+}
+//ham chinh
+int main()
+{
+	int d,c;
+	Nhap(d,c);
+	int a[MAX][MAX];
+	NhapMaTran(a,d,c);
+	printf("\nMa tran sau khi nhap la:\n");
+	XuatMaTran(a,d,c);
+	printf("\nTong cac phan tu co trong ma tran la:%d",TongMaTran(a,d,c));
+	printf("\nTong cac phan tu chan co trong ma tran la:%d",TongChan(a,d,c));
+	printf("\nTong cac phan tu nguyen to trong ma tran la:%d",TongNguyenTo(a,d,c));	
+	printf("\nTong cac phan tu nam tren duong cheo chinh cua ma tran la:%d",TongCheoChinh(a,d,c));
+	printf("\nTong cac phan tu nam tren duong cheo phu la:%d",TongCheoPhu(a,d,c));
+	printf("\nTong cac phan tu nam tren duong bien cua ma tran la:%d",TongBien(a,d,c));
+	printf("\nPhan tu lon nhat trong ma tran la:%d",TimMax(a,d,c));
+}
